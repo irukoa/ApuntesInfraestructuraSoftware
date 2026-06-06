@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Ibarra+Real+Nova:wght@400;500;600;700&display=swap');
+
+body {
+  font-family: "Ibarra Real Nova", serif;
+  font-size: 1.15rem;
+  line-height: 1.7;
+  background: #faf7f2;
+  color: #2c2c2c;
+}
+
+.site-title.lh-tight {
+  font-size: 0.9rem !important;
+}
+
+.side-bar {
+  background: #f4efe6;
+}
+
+.site-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #2f6f4f;
+}
+
+a,
+.nav-list .nav-list-link {
+  color: #2f6f4f;
+}
+
+a:hover,
+.nav-list .nav-list-link:hover,
+.nav-list .nav-list-link.active {
+  color: #1f4f38;
+}
+
+.nav-list-link,
+.nav-list-link.active {
+  color: #2f6f4f !important;
+}
+
+.nav-list-link:hover {
+  color: #1f4f38 !important;
+}
