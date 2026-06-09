@@ -5,7 +5,7 @@ title: El enlazador y la interfaz binaria
 
 # El enlazador y la interfaz binaria
 
-La construcción de un programa suele dividirse en varias etapas. Habitualmente distinguimos entre el preprocesamiento, la compilación propiamente dicha y el enlace. Esta última fase suele poder deshabilitarse mediante una opción del compilador (típicamente `-c`), obteniendo como resultado un archivo objeto en lugar de un ejecutable o una biblioteca.
+La compilación de una unidad de programa suele dividirse en varias etapas. Habitualmente distinguimos entre el preprocesamiento, la compilación propiamente dicha y el enlace. Esta última fase suele poder deshabilitarse mediante una opción del compilador (típicamente `-c`), obteniendo como resultado un archivo objeto en lugar de un ejecutable o una biblioteca.
 
 Durante la fase de enlace, el compilador invoca al enlazador, normalmente [`ld`](https://linux.die.net/man/1/ld), con el objetivo de resolver las referencias existentes entre los distintos archivos objeto que forman el programa. Aunque rara vez es necesario emplear el enlazador de manera directa, comprender su función permite introducir uno de los conceptos fundamentales de esta serie de artículos: la interfaz binaria.
 
