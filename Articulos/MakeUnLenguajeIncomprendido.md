@@ -195,7 +195,7 @@ main: $(EXE)
 $(OBJ)/main.o: main.c | $(OBJ)
     $(CC) $(CFLAGS) $(INC) $(DEFS) -c $< -o $@
 $(OBJ)/main.d: main.c | $(OBJ)
-    $(DEPSCRIPT) $< $(OBJ) > $@ || $(RM) $@
+    $(DEPSCRIPT) $< $(OBJ) $(DEFS) > $@ || $(RM) $@
 ifneq ($(filter-out clean, $(MAKECMDGOALS)), )
 include $(OBJ)/main.d
 endif
@@ -222,7 +222,7 @@ $(OBJ)/%.o: | $(OBJ)
 # Nota: $< traza adecuadamente el primer requisito pese a especificarse en otra regla. En este caso el archivo de dependencias.
 
 $(OBJ)/%.d: $(DIR)/%.c | $(OBJ)
-    $(DEPSCRIPT) $< $(OBJ) > $@ || $(RM) $@
+    $(DEPSCRIPT) $< $(OBJ) $(DEFS) > $@ || $(RM) $@
 
 DIR  :=
 ```
@@ -233,11 +233,31 @@ Este enfoque no constituye una renuncia a Make, sino una consecuencia natural de
 
 ### El caso de C
 
-POR REDACTAR
+Históricamente, el lenguaje C y Make contribuyeron conjuntamente al desarrollo de una infraestructura común para la programación de sistemas. No resulta sorprendente, por tanto, que muchos compiladores de C incorporen mecanismos para extraer automáticamente las dependencias entre archivos fuente. Nos centraremos en el compilador `gcc`. Este dispone una serie de [opciones](https://gcc.gnu.org/onlinedocs/gcc/Preprocessor-Options.html#index-M) para controlar la extracción de dependencias.
+
+En C, las dependencias provienen de directivas `#include`. `gcc` es capaz de trazar directivas de forma recursiva, tanto para archivos incluidos desde directorios del sistema (`#include <>`) como de directorios locales (`#include ""`).
+
+Anteriormente, propusimos la forma de emplear la utilidad de dependencias `tools/GetCDeps.sh`. La utilidad toma dos argumentos, el archivo que procesar y una ruta de directorio. Los demás argumentos controlan la compilación condicional. Una implementación mínima de esta utilidad podría ser la siguiente:
+
+```bash
+#!/bin/bash
+File="$1"
+Dir="$2"
+shift 2
+gcc -MM -MP -I. $@ $File | # Obtiene dependencias.
+sed "1s|^|$Dir/|" | # Añade una ruta directorio al inicio.
+sed '1s|^\([^:]*\)\.o:|\1.d \1.o:|' # Añade como objetivo el propio archivo de dependencias.
+```
+
+La última línea merece cierta atención, pues añade el propio archivo de dependencias entre los artefactos generados. Gracias a ello, cualquier modificación en la estructura de inclusiones provoca automáticamente la regeneración de la información de dependencias correspondiente. De otro modo, el sistema podría conservar información obsoleta y dejar de reflejar fielmente el estado del proyecto.
+
+Muchos de los detalles prácticos asociados a la generación automática de dependencias fueron discutidos con gran claridad por Peter Miller en su [conocido artículo](https://accu.org/journals/overload/14/71/miller_2004/) sobre este tema. No repetiremos aquí dicho análisis; baste señalar que los principios descritos anteriormente resultan suficientes para comprender el enfoque adoptado en este trabajo.
+
+Conviene señalar que la elección de `gcc` como extractor de dependencias no es inocente. Además de proporcionar mecanismos suficientemente maduros para esta tarea, la familia de compiladores GCC constituye una de las herramientas más ampliamente disponibles en los sistemas informáticos actuales. En consecuencia, resulta razonable apoyarse en ella incluso cuando el proyecto emplea otros compiladores para generar los artefactos finales.
 
 ### El caso de Fortran
 
-El caso de Fortran resulta especialmente interesante porque pone de manifiesto una idea importante: la complejidad del sistema de construcción no siempre es consecuencia de las limitaciones de Make. Con frecuencia, refleja la complejidad inherente al problema que intentamos resolver.
+El caso de C resulta relativamente sencillo porque las dependencias derivan exclusivamente de las directivas de inclusión. Fortran presenta escenarios considerablemente más complejos y constituye una prueba más exigente para cualquier sistema de construcción. Esto pone de manifiesto una idea importante: la complejidad del sistema de construcción no siempre es consecuencia de las limitaciones de Make. Con frecuencia, refleja la complejidad inherente al problema que intentamos resolver.
 
 POR REDACTAR
 
