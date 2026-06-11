@@ -17,10 +17,10 @@ Los artículos pueden leerse en cualquier orden. Aunque comparten una misma filo
 
 Entre otros asuntos, discutiremos:
 - El enlazador y la importancia de la interfaz binaria: columna vertebral de la infraestructura de software.
-- El lenguaje C: bibliotecas, punteros, archivos de cabecera, gestión de memoria e interfaz binaria.
-- El lenguaje Fortran: compilación, distribución de programas, aspectos históricos, características modernas del lenguaje e interoperabilidad Fortran-Fortran y C-Fortran.
-- Programación orientada a pruebas: auditabilidad, reproducibilidad y validación de resultados.
+- El lenguaje C: bibliotecas, archivos de cabecera e interfaz binaria.
+- El lenguaje Fortran: compilación, distribución, e interoperabilidad Fortran-Fortran y C-Fortran.
 - El lenguaje Make: características menos conocidas, construcción automática de programas y su empleo como elemento integrador de herramientas diversas.
+- Programación orientada a pruebas: auditabilidad, reproducibilidad y validación de resultados.
 - Diseño de infraestructuras fiables y extensibles mediante herramientas sencillas y ampliamente disponibles.
 - Ingeniería de software en el siglo XXI: la elección de la herramienta adecuada para cada problema.
 
