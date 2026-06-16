@@ -27,4 +27,23 @@ En este modelo, el código fuente deja de desempeñar exclusivamente el papel de
 
 ## El caso de Fortran
 
-POR REDACTAR
+Fortran es uno de los lenguajes de programación más antiguo. También es un lenguaje que hace de la independencia con respecto al hardware su filosofía más nuclear. A lo largo de su dilatada vida, el lenguaje ha conocido muchos y variados compiladores que disponen de la libertad de manipular practicamente todos los aspectos de la generación de código máquina, desde el nombre de los objetos generados, hasta su representación. La prioridad histórica de los compiladores fue además la de generación de binarios ejecutables. Yo no considero que esta trayectoria sea un aspecto negativo del lenguaje, se corresponde simplementa a un desarrollo histórico que impulsa de forma natural un modelo de distribución de código fuente.
+
+Los mecanismos tradicionales de distribución de bibliotecas resultan insatisfactorios por estos motivos. Previamente a la introducción de los [submódulos](https://fortranwiki.org/fortran/show/Submodules), la distribución de bibliotecas presentaba dificultades. El modelo de distribución que existia de hecho, era un híbrido entre el modelo de distribución binaria y el modelo de distribución de código fuente. Hubo muchos versiones: ciertos desarrolladores distribuian archivos `.mod` conjuntamente a la biblioteca binaria. Esto, tal y como apuntamos mas arriba, impone restricciones sobre la compilación del proyecto usuario. Otros modelos se basan en distribuir código fuente. Sin embargo, muchas veces no exisita un mecanismo fiable de construcción e integración del proyecto así como formas sistemáticas de documentación.
+
+En el presente, hay dos opciones principales: emplear el módulo `ISO_C_BINDING`, que permite heredar el contrato ABI de C, o emplear submódulos. Ambas opciones son excelentes para favorecer la interoperabilidad entre una biblioteca Fortran y un usuario Fortran (además, no son mutuamente excluyentes), pero la variante que emplea `ISO_C_BINDING` impone restricciones de interfaz. Desde esta perspectiva, la evolución de las herramientas del lenguaje puede interpretarse como un refinamiento progresivo del modelo de distribución basado en código fuente.
+
+Los submódulos dotan de elegancia al modelo de distribución basado en código fuente. El dúo módulo y submódulo permite separar, respectivamente, interfáz e implementación de una forma limpia. Esto permite converger de forma natural hacia la siguiente versión del modelo de distribución de código fuente:
+- El desarrollador distribuye sistema de compilación y código fuente.
+- El código fuente está claramente separado entre implemetación e interfáz. Los módulos describen la interfaz pública, mientras que los submódulos contienen la implementación.
+- El sistema de construcción genera un binario con respecto a las necesidades del consumidor y provee los módulos interfáz (archivos `.F90`) como la propia interfáz documentada.
+- El consumidor construye la biblioteca empleando el sistema de construcción proporcionado y compila los módulos interfaz con la misma configuración empleada para el resto del proyecto. Esto solventa cualquier incompatibilidad posible con respecto a los archivos `.mod`.
+
+Los submódulos permiten que los módulos desempeñen simultáneamente el papel de interfaz, documentación y especificación del contrato del software. En este sentido, podemos equiparar los archivos módulo con los archivos de cabecera en C. Sin embargo, a diferencia de estos archivos, los módulos de Fortran contienen una gran cantidad de información semántica tales como la finalidad de los argumentos, las definiciones de resultados, los argumentos opcionales, atributos de procedimientos y las declaraciones de tipos derivados. Por lo tanto, la interfaz pública cumple simultáneamente las siguientes funciones:
+- La especificación de la interfáz.
+- Una fuente documental.
+- Material de referencia para el usuario.
+
+En consecuencia, la interfaz pública deja de ser únicamente un mecanismo técnico destinado a satisfacer las necesidades del compilador. Se convierte también en una forma de documentación verificable y en una especificación formal del contrato ofrecido por la biblioteca.
+
+En el cómputo global, la distribución de bibliotecas en Fortran deja de entenderse como la entrega de un producto binario cerrado. Pasa a concebirse como la distribución de un mecanismo reproducible mediante el cual el consumidor puede adaptar la biblioteca a las características concretas de su entorno de compilación. Los módulos y submódulos proporcionan una estructura especialmente adecuada para materializar este modelo.
