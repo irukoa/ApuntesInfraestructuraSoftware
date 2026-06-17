@@ -20,7 +20,7 @@ Una prueba consta de tres secuencias. Primero, diseñamos un escenario. Esto apo
 - Habilitar un registro de pruebas, ya sea manual o automático.
 - Proveer un ejecutor de pruebas.
 - Diseñar un sistema de aserciones.
-- Emitir informes: al menos, debe de identificar las pruebas fallidas.
+- Emitir informes: al menos, debe identificar las pruebas fallidas.
 
 ## Infraestructura propia o externa
 
@@ -34,7 +34,7 @@ La cuestión relevante no consiste en determinar qué infraestructura es objetiv
 
 ## Infraestructura mínima en C
 
-En esta sección expondremos brevemente una pequeña implementación de marco de pruebas escrito en C. Elegimos este lenguaje porque las interfaces binarias generadas por compiladores de C constituyen un punto de interoperabilidad común: numerosos lenguajes proporcionan mecanismos para invocar funciones escritas en C o enlazar bibliotecas generadas por compiladores de C, lo que facilita reutilizar la infraestructura de pruebas desde distintos entornos. C dispone además de una facil integración con Make, el minimo común denominador entre los sistemas de construcción. Finalmente, C es un lenguaje orientado a la programación de sistemas, lo cual aporta muchas utilidades auxiliares en la implementación.
+En esta sección expondremos brevemente una pequeña implementación de marco de pruebas escrito en C. Elegimos este lenguaje porque las interfaces binarias generadas por compiladores de C constituyen un punto de interoperabilidad común: numerosos lenguajes proporcionan mecanismos para invocar funciones escritas en C o enlazar bibliotecas generadas por compiladores de C, lo que facilita reutilizar la infraestructura de pruebas desde distintos entornos. C dispone además de una fácil integración con Make, el mínimo común denominador entre los sistemas de construcción. Finalmente, C es un lenguaje orientado a la programación de sistemas, lo cual aporta muchas utilidades auxiliares en la implementación.
 
 El marco de pruebas que expondremos está cimientado sobre [TSD](https://github.com/irukoa/ApuntesInfraestructuraSoftware/tree/main/TSD), un marco que yo desarrollé. Las abstracciones fundamentales son las siguientes. Representamos una prueba así:
 

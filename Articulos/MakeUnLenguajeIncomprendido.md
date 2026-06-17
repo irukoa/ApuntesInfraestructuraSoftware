@@ -119,7 +119,7 @@ Pese a la incompletitud de este *Makefile*, ya hemos conseguido algo valioso: se
 
 ## Extractores de dependencias
 
-Aun queda por determinar cual es la estructura de los archivos `Reg.mk`. En esencia, nos enfrentamos a dos problemas distintos. Por un lado, debemos especificar cómo se construye cada artefacto. Por otro, debemos expresar correctamente las relaciones de dependencia entre ellos. Conviene tratar ambas cuestiones de forma separada. La opción mas sencilla es la de listar, artesanalmente, todos los artefactos y sus dependencias:
+Aun queda por determinar cual es la estructura de los archivos `Reg.mk`. En esencia, nos enfrentamos a dos problemas distintos. Por un lado, debemos especificar cómo se construye cada artefacto. Por otro, debemos expresar correctamente las relaciones de dependencia entre ellos. Conviene tratar ambas cuestiones de forma separada. La opción más sencilla es la de listar, artesanalmente, todos los artefactos y sus dependencias:
 
 ```make
 # src/ModuloA/Reg.mk
@@ -138,7 +138,7 @@ $(OBJ)/%.o: | $(OBJ)
 DIR  :=
 ```
 
-Este método, pese a ser el mas sencillo, también es el mas laborioso. El problema no es dar las recetas para crear los artefactos, si no tener que mantener el registro de las interdependencias para cada uno de los artefactos. En esta sección propondremos un método ligeramente mas sofisticado, el cual se basa en extractores de dependencias. Gracias a este método, solventaremos esta clase de problemas.
+Este método, pese a ser el más sencillo, también es el más laborioso. El problema no es dar las recetas para crear los artefactos, sino tener que mantener el registro de las interdependencias para cada uno de los artefactos. En esta sección propondremos un método ligeramente más sofisticado, el cual se basa en extractores de dependencias. Gracias a este método, solventaremos esta clase de problemas.
 
 Un extractor de dependencias genera reglas tales como
 
@@ -334,17 +334,17 @@ sed -E 's@^([^:]+)\.mod:@\1.mod \1.smod:@' # Añade una entrada `.smod`.
 
 ## Perfiles
 
-Gran parte de los sistemas de software actuales distinguen habitualmente dos perfiles con los que trabajar, el de depuración y prueba, y el de producción y distribución. Aunque cada proyecto establece sus propios requisitos, resulta habitual distinguir entre un perfil orientado al desarrollo y otro orientado a la distribución del software. En esta sección trataremos sobre el papel que Make juega en cada uno de los perfiles, asi como sus características mas transversales.
+Gran parte de los sistemas de software actuales distinguen habitualmente dos perfiles con los que trabajar, el de depuración y prueba, y el de producción y distribución. Aunque cada proyecto establece sus propios requisitos, resulta habitual distinguir entre un perfil orientado al desarrollo y otro orientado a la distribución del software. En esta sección trataremos sobre el papel que Make juega en cada uno de los perfiles, asi como sus características más transversales.
 
 ### Depuración y pruebas
 
 Este es un perfil adaptado al desarrollador. Se caracteriza por compilar con símbolos de depuración, asi como con métricas de cobertura. Esto habilita un control total sobre el código. Habitualmente, esta clase de perfiles incorporan una infraestructura de pruebas que permite validar el comportamiento del software y detectar regresiones durante el desarrollo.
 
-En este contexto, Make actúa como orquestador del proceso de validación. Además de compilar el proyecto, puede encargarse de construir las herramientas auxiliares necesarias, ejecutar las pruebas y recopilar métricas asociadas al proceso de validación. En [otro artículo](https://irukoa.github.io/ApuntesInfraestructuraSoftware/Articulos/ProgramacionOrientadaAPruebas.html) tratamos mas a fondo este concepto.
+En este contexto, Make actúa como orquestador del proceso de validación. Además de compilar el proyecto, puede encargarse de construir las herramientas auxiliares necesarias, ejecutar las pruebas y recopilar métricas asociadas al proceso de validación. En [otro artículo](https://irukoa.github.io/ApuntesInfraestructuraSoftware/Articulos/ProgramacionOrientadaAPruebas.html) tratamos más a fondo este concepto.
 
 ### Producción y distribución
 
-Este es un perfil adaptado al consumidor. Aquí tiende a haber demasiada variedad como para identificar un denominador comun mas allá del siguiente contrato: el perfil encapsula el proceso de compilación del software. En este sentido, diseñamos una capa de abstracción sobre el código fuente y tratamos de convertir la construcción en una interfaz estable. Idealmente, la construcción completa del software debería poder iniciarse mediante una interfaz estable y sencilla, delegando en Make la ejecución de los pasos necesarios.
+Este es un perfil adaptado al consumidor. Aquí tiende a haber demasiada variedad como para identificar un denominador comun más allá del siguiente contrato: el perfil encapsula el proceso de compilación del software. En este sentido, diseñamos una capa de abstracción sobre el código fuente y tratamos de convertir la construcción en una interfaz estable. Idealmente, la construcción completa del software debería poder iniciarse mediante una interfaz estable y sencilla, delegando en Make la ejecución de los pasos necesarios.
 
 En este contexto, Make actúa como la implementación del proceso de construcción, mientras que el perfil constituye la interfaz expuesta al consumidor del software.
 
