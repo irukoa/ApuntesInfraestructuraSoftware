@@ -21,7 +21,7 @@ Con cierta frecuencia, la discusión en torno a Make adopta la forma de una fals
 
 Este artículo articula una idea modesta: Make es un sistema perfectamente válido para una amplia variedad de proyectos, siempre que se emplee con disciplina y se comprendan adecuadamente los principios sobre los que se sustenta. De hecho, el conocimiento de dichos principios proporciona competencias que trascienden al propio Make. La comprensión explícita de las dependencias entre componentes, la reconstrucción incremental de artefactos, la composición de herramientas sencillas o la automatización reproducible de tareas son conceptos que conservan su relevancia independientemente del sistema de construcción finalmente adoptado.
 
-Por otra parte, muchas de las críticas dirigidas hacia Make se refieren, en realidad, a determinados estilos de escritura de *Makefiles* más que al lenguaje en sí mismo. Un *Makefile* desorganizado puede resultar tan dañino como cualquier otro artefacto software mal diseñado. Del mismo modo, un uso disciplinado de Make puede dar lugar a sistemas de construcción sorprendentemente robustos, expresivos y duraderos.
+Por otra parte, muchas de las críticas dirigidas hacia Make se refieren, en realidad, a determinados estilos de escritura de *Makefile*s más que al lenguaje en sí mismo. Un *Makefile* desorganizado puede resultar tan dañino como cualquier otro artefacto software mal diseñado. Del mismo modo, un uso disciplinado de Make puede dar lugar a sistemas de construcción sorprendentemente robustos, expresivos y duraderos.
 
 No pretendemos argumentar que Make sea la solución adecuada para cualquier problema ni que los sistemas alternativos carezcan de justificación técnica. Existen escenarios en los que herramientas de mayor nivel ofrecen ventajas evidentes. Tampoco defenderemos que todo proyecto deba renunciar a ellas en favor de un retorno a planteamientos más tradicionales.
 
@@ -40,7 +40,7 @@ Make dispone de la directiva [`include`](https://www.gnu.org/software/make/manua
 Personalmente, me gusta crear un archivo de registro de módulos que luego incluyo en el *Makefile* raíz:
 
 ```make
-# RegistroDeModulos.mkr
+# RegistroDeModulos.mk
 include src/ModuloA/Reg.mk
 # [...]
 ```
@@ -54,7 +54,7 @@ $ tree
 .
 ├── main.c
 ├── Makefile
-├── RegistroDeModulos.mkr
+├── RegistroDeModulos.mk
 └── src
     ├── ModuloA
     │   ├── ModuloA1.c
@@ -100,7 +100,7 @@ endif
 # Grafo de dependencias (delegado)
 SRCS :=
 OBJS :=
-include RegistroDeModulos.mkr
+include RegistroDeModulos.mk
 
 # Reglas para main.c
 main: $(EXE)
@@ -183,7 +183,7 @@ endif
 # Grafo de dependencias (delegado)
 SRCS :=
 OBJS :=
-include RegistroDeModulos.mkr
+include RegistroDeModulos.mk
 # Inclusión de dependencias
 DEPS := $(patsubst $(OBJ)/%.o,$(OBJ)/%.d,$(OBJS))
 ifneq ($(filter-out clean, $(MAKECMDGOALS)), )
@@ -253,7 +253,7 @@ La última línea merece cierta atención, pues añade el propio archivo de depe
 
 Muchos de los detalles prácticos asociados a la generación automática de dependencias fueron discutidos con gran claridad por Peter Miller en su [conocido artículo](https://accu.org/journals/overload/14/71/miller_2004/) sobre este tema. No repetiremos aquí dicho análisis; baste señalar que los principios descritos anteriormente resultan suficientes para comprender el enfoque adoptado en este trabajo.
 
-Conviene señalar que la elección de `gcc` como extractor de dependencias no es inocente. Además de proporcionar mecanismos suficientemente maduros para esta tarea, la familia de compiladores GCC constituye una de las herramientas más ampliamente disponibles en los sistemas informáticos actuales. En consecuencia, resulta razonable apoyarse en ella incluso cuando el proyecto emplea otros compiladores para generar los artefactos finales.
+Conviene señalar que la elección de `gcc` como extractor de dependencias no es inocente. Además de proporcionar mecanismos suficientemente maduros para esta tarea, la familia de compiladores GCC constituye una de las herramientas más ampliamente disponibles en los sistemas informáticos actuales. En consecuencia, resulta razonable sustentarse en ella incluso cuando el proyecto emplea otros compiladores para generar los artefactos finales.
 
 ### El caso de Fortran
 

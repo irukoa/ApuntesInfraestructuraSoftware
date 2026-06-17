@@ -16,7 +16,7 @@ Los artículos pueden leerse en cualquier orden. Aunque comparten una misma filo
 ## Temas que trataremos
 
 Entre otros asuntos, discutiremos:
-- El enlazador y la importancia de la interfaz binaria: columna vertebral de la infraestructura de software.
+- El enlazador y la importancia de la interfaz binaria: columna vertebral de la distribución de software.
 - El lenguaje C: bibliotecas, archivos de cabecera e interfaz binaria.
 - El lenguaje Fortran: compilación, distribución, e interoperabilidad Fortran-Fortran y C-Fortran.
 - El lenguaje Make: características menos conocidas, construcción automática de programas y su empleo como elemento integrador de herramientas diversas.

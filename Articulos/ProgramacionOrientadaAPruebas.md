@@ -11,7 +11,7 @@ Las pruebas pueden clasificarse de múltiples maneras. La literatura especializa
 
 Con frecuencia, la discusión en torno a la programación orientada a pruebas se centra en qué herramientas emplear. Existen marcos ampliamente adoptados, como [GoogleTest](https://github.com/google/googletest), que proporcionan soluciones maduras a problemas recurrentes. Sin embargo, no siempre resulta evidente que la incorporación de una infraestructura externa constituya la opción más adecuada para un proyecto determinado. Del mismo modo, desarrollar una infraestructura propia tampoco es una decisión exenta de costes.
 
-En este artículo examinaremos distintas estrategias para implementar una infraestructura de pruebas, prestando especial atención a los compromisos que cada una de ellas implica. Nuestro objetivo no es defender una solución universal, sino proporcionar al lector los elementos necesarios para evaluar qué enfoque se ajusta mejor a las características y necesidades de su propio software. Este artículo puede leerse como una descripcion de técnicas y usos en la implementación de esta metodología.
+En este artículo examinaremos distintas estrategias para implementar una infraestructura de pruebas, prestando especial atención a los compromisos que cada una de ellas implica. Nuestro objetivo no es defender una solución universal, sino proporcionar al lector los elementos necesarios para evaluar qué enfoque se ajusta mejor a las características y necesidades de su propio software. Este artículo puede entenderse como una descripcion de técnicas y usos en la implementación de esta metodología.
 
 ## Diseño de infraestructura
 
